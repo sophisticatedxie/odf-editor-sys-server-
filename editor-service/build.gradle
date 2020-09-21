@@ -1,0 +1,18 @@
+subprojects{
+
+    configurations {
+        compile.exclude module: "spring-boot-starter-tomcat"
+    }
+
+
+    dependencies{
+
+      compile rootProject.ext.dependencies["web"]
+        compile rootProject.ext.dependencies["undertow"]
+        compile rootProject.ext.dependencies["mp"]
+        implementation rootProject.ext.dependencies["h2"]
+        compile rootProject.ext.dependencies["cache"]
+
+    }
+
+}

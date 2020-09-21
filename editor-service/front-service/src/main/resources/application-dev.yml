@@ -1,0 +1,4 @@
+spring:
+  datasource:
+    #h2文件数据库 内存模式连接配置 库名:et_center
+    url: jdbc:h2:file:D:/code/H2/et_center

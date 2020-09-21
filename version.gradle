@@ -1,0 +1,24 @@
+ext{
+
+    dependencies= [
+            undertow:"org.springframework.boot:spring-boot-starter-undertow",
+            aop:"org.springframework.boot:spring-boot-starter-aop",
+            web:"org.springframework.boot:spring-boot-starter-web",
+        jwt     :    "com.auth0:java-jwt:3.5.0",
+            beetl:"com.ibeetl:beetl:3.1.7.RELEASE",
+            hutool:"cn.hutool:hutool-all:5.3.9",
+            dom4j:"org.dom4j:dom4j:2.0.0",
+        fastjson:"com.alibaba:fastjson:1.2.72",
+        h2:"com.h2database:h2:1.4.200",
+        druid:"com.alibaba:druid-spring-boot-starter:1.1.21",
+            mp:"com.baomidou:mybatis-plus-boot-starter:3.3.1",
+        validator:"org.hibernate:hibernate-validator:6.0.13.Final",
+        ftp:"com.jcraft:jsch:0.1.51",
+            cache:"org.springframework.boot:spring-boot-starter-cache"
+
+    ]
+
+
+
+
+}

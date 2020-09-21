@@ -1,0 +1,15 @@
+
+
+subprojects{
+
+    dependencies{
+
+        compile project(':editor-common')
+        compileOnly rootProject.ext.dependencies["mp"]
+        compileOnly rootProject.ext.dependencies["cache"]
+
+        implementation rootProject.ext.dependencies["druid"]
+
+    }
+
+}

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<%
+DIRECTIVE SAFE_OUTPUT_OPEN;
+%>
+<%
+    var odfBody = root;
+    var date = date();
+    var competition = odfBody.competition;
+    var sessions = competition.session;
+    var units = competition.unit;
+%>
+<OdfBody CompetitionCode="${odfBody.competitionCode}" DocumentCode="FBS-------------------------------"
+    DocumentType="${odfBody.documentType}" Version="${odfBody.version}" FeedFlag="${odfBody.feedFlag}"
+    Date="${date,'yyyy-MM-dd'}" Time="${date,'HHmmssSSS'}" LogicalDate="${date,'yyyy-MM-dd'}" Source="${odfBody.source}">
+    <Competition Gen="${competition.gen}" Sport="${competition.sport}" Codes="${competition.codes}">
+        <% for(session in sessions) {
+            var sessionNames = session.sessionName;
+        %>
+        <Session SessionCode="${session.sessionCode}" StartDate="${session.startDate,dateFormat="yyyy-MM-dd'T'HH:mm:ss"}" EndDate="${session.endDate,dateFormat="yyyy-MM-dd'T'HH:mm:ss"}"
+            Leadin="${session.leadin}" Venue="${session.venue}" VenueName="${session.venueName}" ModificationIndicator="${session.modificationIndicator}"
+            SessionStatus="${session.sessionStatus}" SessionType="${session.sessionType}">
+            <% for(sessionName in sessionNames) { %>
+            <SessionName Language="${sessionName.language}" Value="${sessionName.value}" />
+            <% } %>
+            <SessionName Language="ENG" Value=""/>
+        </Session>
+        <% } %>
+        <% for(unit in units) {
+            var startTexts = unit.startText;
+            var itemNames = unit.itemName;
+            var venueDescription = unit.venueDescription;
+            var starts = unit.startList != null ? unit.startList.start : null;
+        %>
+        <Unit Code="${unit.code}" PhaseType="3" UnitNum="${unit.order}" ScheduleStatus="${unit.scheduleStatus}"
+            StartDate="${unit.startDate,dateFormat="yyyy-MM-dd'T'HH:mm:ss"}" Order="${unit.order}" Medal="${unit.medal}" Venue="${unit.venue}" Location="${unit.location}"
+            MediaAccess="${unit.mediaAccess}" SessionCode="${unit.sessionCode}" ModificationIndicator="${unit.modificationIndicator == null?'N':unit.modificationIndicator}">
+            <% for(startText in startTexts) { %>
+            <StartText Language="${startText.language}" Value="${startText.value}" />
+            <% } %>
+            <% for(itemName in itemNames) { %>
+            <ItemName Language="ENG" Value="${itemName.value}" />
+            <% } %>
+            <VenueDescription VenueName="${venueDescription.venueName}" LocationName="${venueDescription.locationName}" />
+            <% if(isNotEmpty(starts)){ %>
+            <StartList>
+                <% for(start in starts) {
+                    var competitor = start.competitor;
+                    var description = competitor != null ? competitor.description : null;
+                    var athletes = competitor.composition.athlete ;
+                %>
+                <Start StartOrder="${start.startOrder}" SortOrder="${start.sortOrder}" PreviousWLT="${start.previousWLT}"
+                    PreviousUnit="${start.previousUnit}">
+                    <Competitor Code="${competitor.code}" Type="T" Organisation="${competitor.organisation}" Bib="${competitor.bib}">
+                        <Description TeamName="${description.teamName}" IFId="${description.iFId}" />
+                        <% if(isNotEmpty(athletes)){ %>
+                        <Composition>
+                            <% for(athlete in athletes) {
+                                var athleteDescription = athlete.description;
+                            %>
+                            <Athlete Code="${athlete.code}" Order="${athlete.order}" Bib="${athlete.bib}">
+                                <% if(athleteDescription != null){ %>
+                                <Description GivenName="${athleteDescription.givenName}"
+                                    FamilyName="${athleteDescription.familyName}" Gender="${athleteDescription.gender}" Organisation="${athleteDescription.organisation}"
+                                    BirthDate="${athleteDescription.birthDate}" IFId="${athleteDescription.iFId}" Class="" Horse="${athleteDescription.horse}" />
+                                <% } %>
+                            </Athlete>
+                            <% } %>
+                        </Composition>
+                        <% } %>
+                    </Competitor>
+                </Start>
+                <% } %>
+            </StartList>
+            <% } %>
+        </Unit>
+        <% } %>
+    </Competition>
+</OdfBody>
+<%
+DIRECTIVE SAFE_OUTPUT_CLOSE;
+%>

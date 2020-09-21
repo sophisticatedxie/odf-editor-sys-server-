@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onesports.editor.dao.EtNodeDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="BaseColumnList">
+        id, element_name, is_simple, auto_field, content_express, create_time, create_author
+    </sql>
+
+
+    <sql id="where">
+                    <if test="params.id != null and params.id != ''">
+                AND T.id = #{params.id}
+            </if>
+                    <if test="params.elementName != null and params.elementName != ''">
+                AND T.element_name = #{params.elementName}
+            </if>
+                    <if test="params.isSimple != null and params.isSimple != ''">
+                AND T.is_simple = #{params.isSimple}
+            </if>
+                    <if test="params.autoField != null and params.autoField != ''">
+                AND T.auto_field = #{params.autoField}
+            </if>
+                    <if test="params.contentExpress != null and params.contentExpress != ''">
+                AND T.content_express = #{params.contentExpress}
+            </if>
+                    <if test="params.createTime != null and params.createTime != ''">
+                AND T.create_time = #{params.createTime}
+            </if>
+                    <if test="params.createAuthor != null and params.createAuthor != ''">
+                AND T.create_author = #{params.createAuthor}
+            </if>
+            </sql>
+
+    <resultMap id="nodes" type="com.onesports.editor.vo.NodeAttributeRelatiioinVO">
+        <id property="id" column="id" />
+        <association property="node"  resultMap="node"/>
+        <collection property="attrs"  resultMap="attrs" />
+    </resultMap>
+
+    <resultMap id="node" type="com.onesports.editor.po.EtNode">
+        <id property="id" column="nodeId" />
+        <result property="autoField" column="autoField"/>
+        <result property="contentExpress" column="contentExpress" />
+        <result property="elementName" column="nodeName" />
+        <result property="isBody" column="isBody"/>
+        <result property="isClosure" column="isClosure"/>
+        <result property="isSimple" column="isSimple"/>
+    </resultMap>
+<resultMap id="attrs" type="com.onesports.editor.po.EtAttribute">
+    <id property="id" column="attId"/>
+    <result property="attributeName" column="attName"/>
+    <result property="valExpress" column="express"/>
+</resultMap>
+
+    <select id="nodesList" resultMap="nodes">
+SELECT NODE.ID  "id" ,
+NODE.ELEMENT_NAME "nodeName",
+NODE.AUTO_FIELD "autoField",
+NODE.ID  "nodeId",
+NODE.CONTENT_EXPRESS "contentExpress",
+NODE.ISBODY "isBody",
+NODE.IS_CLOSURE "isClosure",
+NODE.IS_SIMPLE "isSimple",
+(SELECT ATT.ATTRIBUTE_NAME  FROM ET_ATTRIBUTE  ATT where ATT.ID=RELATION.ATTRIBUTE_ID) "attName",
+(SELECT ATT.ID  FROM ET_ATTRIBUTE  ATT where ATT.ID=RELATION.ATTRIBUTE_ID) "attId",
+(SELECT ATT.VAL_EXPRESS FROM ET_ATTRIBUTE  ATT where ATT.ID=RELATION.ATTRIBUTE_ID) "express",
+  FROM ET_NODE  NODE LEFT JOIN ET_ATTRIBUTE_NODE_RELATIONSHIP  RELATION  ON NODE.ID=RELATION.NODE_ID
+    </select>
+</mapper>

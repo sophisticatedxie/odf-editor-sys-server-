@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onesports.editor.dao.EtCryptoDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="BaseColumnList">
+        id, func_content, func_name, create_time, create_author
+    </sql>
+
+
+    <sql id="where">
+                    <if test="params.id != null and params.id != ''">
+                AND T.id = #{params.id}
+            </if>
+                    <if test="params.funcContent != null and params.funcContent != ''">
+                AND T.func_content = #{params.funcContent}
+            </if>
+                    <if test="params.funcName != null and params.funcName != ''">
+                AND T.func_name = #{params.funcName}
+            </if>
+                    <if test="params.createTime != null and params.createTime != ''">
+                AND T.create_time = #{params.createTime}
+            </if>
+                    <if test="params.createAuthor != null and params.createAuthor != ''">
+                AND T.create_author = #{params.createAuthor}
+            </if>
+            </sql>
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onesports.editor.dao.EtTemplateDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="BaseColumnList">
+        template_id, template_name, template_class_code, template_content, create_author, create_time, restful_url, odf_xml, crypto_id
+    </sql>
+
+
+    <sql id="where">
+                    <if test="params.templateId != null and params.templateId != ''">
+                AND T.template_id = #{params.templateId}
+            </if>
+                    <if test="params.templateName != null and params.templateName != ''">
+                AND T.template_name = #{params.templateName}
+            </if>
+                    <if test="params.templateClassCode != null and params.templateClassCode != ''">
+                AND T.template_class_code = #{params.templateClassCode}
+            </if>
+                    <if test="params.templateContent != null and params.templateContent != ''">
+                AND T.template_content = #{params.templateContent}
+            </if>
+                    <if test="params.createAuthor != null and params.createAuthor != ''">
+                AND T.create_author = #{params.createAuthor}
+            </if>
+                    <if test="params.createTime != null and params.createTime != ''">
+                AND T.create_time = #{params.createTime}
+            </if>
+                    <if test="params.restfulUrl != null and params.restfulUrl != ''">
+                AND T.restful_url = #{params.restfulUrl}
+            </if>
+                    <if test="params.odfXml != null and params.odfXml != ''">
+                AND T.odf_xml = #{params.odfXml}
+            </if>
+                    <if test="params.cryptoId != null and params.cryptoId != ''">
+                AND T.crypto_id = #{params.cryptoId}
+            </if>
+            </sql>
+</mapper>

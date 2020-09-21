@@ -1,0 +1,79 @@
+server:
+  port: 8081
+  compression:
+    enabled: true
+    mime-types: application/json
+spring:
+  profiles:
+    active: dev
+  output:
+    ansi:
+      enabled: detect
+  datasource:
+    #驱动
+    driver-class-name: org.h2.Driver
+    #初始化数据表
+    schema: classpath:database.sql
+    type: com.alibaba.druid.pool.DruidDataSource
+    #druid配置
+    druid:
+      initial-size: 5
+      max-active: 20
+      min-idle: 5
+      max-wait: 3000
+      filter:
+        config:
+          enabled: true
+      pool-prepared-statements: true
+      #监控统计的stat,以及防sql注入的wall
+      filters: stat
+      db-type: h2
+      #Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
+      aop-patterns: com.onesports.editor.*
+      web-stat-filter:
+        #是否启用StatFilter默认值true
+        enabled: true
+        #添加过滤规则
+        url-pattern: /*
+        #忽略过滤的格式
+        exclusions: /**/*.js,/**/*.gif,/**/*.jpg,/**/*.png,/**/*.css,/**/*.ico,/druid/*
+      #是否启用StatViewServlet默认值true
+      stat-view-servlet:
+        enabled: true
+        #访问路径为/druid时，跳转到StatViewServlet
+        url-pattern: /druid/*
+        # 是否能够重置数据
+        reset-enable: false
+        # 需要账号密码才能访问控制台，默认为root
+        login-password: root
+        login-username: root
+      username: root
+      password: root
+  #    #初始化数据
+#    data: classpath:init.sql
+  h2:
+    #开启console访问
+   console:
+     enabled: true
+     #开启h2 console 跟踪 方便调试
+     settings:
+       trace: false
+       web-allow-others: false
+     path: /h2-console
+#mybatis plus
+mybatis-plus:
+  #指明mapper.xml扫描位置(classpath* 代表编译后类文件根目录)
+  mapper-locations: classpath:/mapper/*.xml
+  #指明实体扫描(多个package用逗号或者分号分隔)
+  typeAliasesPackage: com.onesports.editor.po
+  global-config:
+    db-config:
+      #查询时对条件进行判断  非空
+      select-strategy: not_empty
+#sql日志
+logging:
+  level:
+    com:
+      onesports:
+        editor:
+          dao: debug

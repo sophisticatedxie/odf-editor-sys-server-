@@ -1,0 +1,4 @@
+spring:
+  datasource:
+    #h2文件数据库 内存模式连接配置 库名:et_center
+    url: jdbc:h2:file:/usr/local/projects/odf-editor-sys/backend/db/et_center

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onesports.editor.dao.EtGenerateLogDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="BaseColumnList">
+        log_id, template_id, source_data, ip, explorer_info, create_time, create_author, result
+    </sql>
+
+
+    <sql id="where">
+                    <if test="params.logId != null and params.logId != ''">
+                AND T.log_id = #{params.logId}
+            </if>
+                    <if test="params.templateId != null and params.templateId != ''">
+                AND T.template_id = #{params.templateId}
+            </if>
+                    <if test="params.sourceData != null and params.sourceData != ''">
+                AND T.source_data = #{params.sourceData}
+            </if>
+                    <if test="params.ip != null and params.ip != ''">
+                AND T.ip = #{params.ip}
+            </if>
+                    <if test="params.explorerInfo != null and params.explorerInfo != ''">
+                AND T.explorer_info = #{params.explorerInfo}
+            </if>
+                    <if test="params.createTime != null and params.createTime != ''">
+                AND T.create_time = #{params.createTime}
+            </if>
+                    <if test="params.createAuthor != null and params.createAuthor != ''">
+                AND T.create_author = #{params.createAuthor}
+            </if>
+                    <if test="params.result != null and params.result != ''">
+                AND T.result = #{params.result}
+            </if>
+            </sql>
+</mapper>
