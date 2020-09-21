@@ -14,6 +14,7 @@ compile:
   stage: compile
   # 运行脚本, 使用变量时要用到 $ 符号
   script:
+    - export GRADLE_USER_HOME=/usr/local/repos/gradle
     - gradle clean build
   # 只作用在master分支
   only:
