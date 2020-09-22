@@ -7,9 +7,10 @@ stages:
   - deploy
 # 定义个变量, 指定maven下载的jar包存放的位置
 variables:
-  PROJECT_NAME: "odf-editor-sys-server"
   FRONT_SERVICE: "editor-service/front-service"
   IMAGE_FRONT: "odf-editor-sys-front-service"
+  CONTAINER: "odf-editor-sys-front-service-container"
+  VERSION: "1.0.0"
 # 第一阶段
 compile:
   # 打包用到了maven, 所有需要拉取maven镜像, 这是我自己构建的阿里云maven私服的maven镜像
@@ -40,7 +41,7 @@ build:
   tags:
     - my-tag
   script:
-    - docker build -t $PROJECT_NAME:front-service-1.0 -f $FRONT_SERVICE/Dockerfile .
+    - docker build -t $IMAGE_FRONT:$VERSION -f $FRONT_SERVICE/Dockerfile .
 
 #第三阶段,发布
 deploy:
@@ -51,6 +52,6 @@ deploy:
   tags:
     - my-tag
   script:
-    - docker stop $IMAGE_FRONT ||true
-    - docker rm $IMAGE_FRONT || true
-    - docker run -d -p 8081:8081 -p 5005:5005 --name $IMAGE_FRONT -v /usr/local/projects/odf-editor-sys/backend/db:/usr/local/projects/odf-editor-sys/backend/db $PROJECT_NAME:front-service-1.0
+    - docker stop $CONTAINER ||true
+    - docker rm $CONTAINER || true
+    - docker run -d -p 8081:8081 -p 5005:5005 --name $CONTAINER -v /usr/local/projects/odf-editor-sys/backend/db:/usr/local/projects/odf-editor-sys/backend/db $IMAGE_FRONT:$VERSION
