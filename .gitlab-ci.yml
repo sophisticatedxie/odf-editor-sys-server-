@@ -26,5 +26,4 @@ compile:
   artifacts:
     expire_in: 1 days
     paths:
-      - target/*.jar
       - editor-service/front-service/build/libs/*.jar
