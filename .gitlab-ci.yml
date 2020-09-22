@@ -3,9 +3,13 @@ image: docker:stable
 # 定义三个阶段
 stages:
   - compile
+  - build
+  - deploy
 # 定义个变量, 指定maven下载的jar包存放的位置
 variables:
-  MAVEN_OPTS: "-Dmaven.repo.local=/.m2"
+  PROJECT-NAME: "odf-editor-sys-server"
+  FRONT-SERVICE: "editor-service/front-service"
+  IMAGE-FRONT: "odf-editor-sys-front-service"
 # 第一阶段
 compile:
   # 打包用到了maven, 所有需要拉取maven镜像, 这是我自己构建的阿里云maven私服的maven镜像
@@ -24,6 +28,29 @@ compile:
     - my-tag
   # 编译后有产物,所以要指定下过期时间和路径, 以供于其他阶段使用
   artifacts:
-    expire_in: 1 days
+    expire_in: 10 min
     paths:
-      - editor-service/front-service/build/libs/*.jar
+      - $FRONT-SERVICE/build/libs/*.jar
+#第二阶段，开始生成docker镜像
+build:
+  image: docker:stable
+  stage: build
+  only:
+    - master
+  tags:
+    - my-tag
+  script:
+    - docker build -t $PROJECT-NAME:front-service-1.0 -f $FRONT-SERVICE/Dockerfile .
+
+#第三阶段,发布
+deploy:
+  image: docker:stable
+  stage: deploy
+  only:
+    - master
+  tags:
+    - my-tag
+  script:
+    - docker stop $IMAGE-FRONT ||true
+    - docker rm $IMAGE-FRONT || true
+    - docker run -d -p 8081:8081 -p 5005:5005 --name $IMAGE-FRONT -v /usr/local/projects/odf-editor-sys/backend/db:/usr/local/projects/odf-editor-sys/backend/db $PROJECT-NAME:front-service-1.0
