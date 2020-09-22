@@ -28,7 +28,7 @@ public class EtTemplateController extends BaseController<EtTemplateService, EtTe
 
     @GetMapping("/initAll")
     @SecurityApi
-    @ApiOperation("模板平台初始化节点和属性")
+    @ApiOperation("初始化节点与属性")
     public ResultVO initAll() throws Exception {
         return ResultVO.data(this.service.initAll());
     }
