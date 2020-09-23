@@ -56,48 +56,6 @@ public class EtTemplateController extends BaseController<EtTemplateService, EtTe
         return ResultVO.data(this.service.genXmlResult(templateId));
     }
 
-//    public static void main(String[] args) throws IOException {
-//        Document document=DocumentHelper.createDocument();
-//        document.setRootElement(document.addElement("OdfBody"));
-//        Element roor=document.getRootElement();
-//        roor.addElement("foreach");
-//        roor.element("foreach").addAttribute("v-for","session in sessions");
-//        roor.element("foreach").addAttribute("value","var sessionNames = session.sessionName;");
-//
-//        roor.element("foreach").addElement("Competition");
-//        //创建字符串缓冲区
-//        StringWriter stringWriter = new StringWriter();
-//        //设置文件编码
-//        OutputFormat xmlFormat = new OutputFormat();
-//        xmlFormat.setEncoding("UTF-8");
-//        // 设置换行
-//        xmlFormat.setNewlines(true);
-//        // 生成缩进
-//        xmlFormat.setIndent(true);
-//        // 使用4个空格进行缩进, 可以兼容文本编辑器
-//        xmlFormat.setIndent("    ");
-//
-//        //创建写文件方法
-//        XMLWriter xmlWriter = new XMLWriter(stringWriter,xmlFormat);
-//        //写入文件
-//        xmlWriter.write(document);
-//        //关闭
-//        xmlWriter.close();
-//        // 输出xml
-//        String result=stringWriter.toString();
-//        Pattern pattern=Pattern.compile ("<foreach");
-//        Matcher matcher=pattern.matcher(result);
-//        while (matcher.find()){
-//            System.out.println(matcher.group());
-//        }
-//
-//
-//    }
-
-
-
-
-
 
 }
 
