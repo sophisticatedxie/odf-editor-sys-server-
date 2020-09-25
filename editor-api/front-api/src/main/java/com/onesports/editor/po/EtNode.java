@@ -27,7 +27,7 @@ public class EtNode extends BaseEntity {
 private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "节点id")
-    @TableId(value = "id", type = IdType.UUID)
+    @TableId(value = "id", type = IdType.ASSIGN_UUID)
     private String id;
 
     @ApiModelProperty(value = "节点名字")
@@ -46,10 +46,15 @@ private static final long serialVersionUID=1L;
     @TableField(value = "isBody")
     private String isBody;
 
-    @ApiModelProperty(value = "单双标签 0 单 1双")
-    private String isClosure;
+    @ApiModelProperty("条件表达式")
+    private String condition;
 
-    
+    @ApiModelProperty(value = "是否启动条件展示 0 否 1是",example = "0")
+    private Integer enableCondition;
+
+
+
+
 
 
 

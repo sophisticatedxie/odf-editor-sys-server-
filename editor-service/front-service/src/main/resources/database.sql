@@ -73,7 +73,8 @@ CREATE TABLE IF NOT EXISTS et_node  (
   modified_by varchar(50)  NULL DEFAULT NULL COMMENT '更新者',
   modified_time datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   isbody varchar (50) NULL DEFAULT  NULL COMMENT '是否为body节点',
-  is_closure varchar (2) NULL DEFAULT  NULL COMMENT '单双标签',
+  condition varchar(56) NULL DEFAULT  NULL COMMENT '条件表达式',
+  enable_condition int(1) NULL DEFAULT 0 COMMENT '是否启动条件展示 0 否 1是',
   PRIMARY KEY (id)
 );
 
@@ -119,7 +120,6 @@ CREATE TABLE IF NOT EXISTS et_template  (
   modified_by varchar(50)  NULL DEFAULT NULL COMMENT '更新者',
   modified_time datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   crypto_id varchar(50)  NULL DEFAULT NULL COMMENT '使用加密算法ID',
-  tree_json blob NULL DEFAULT NULL COMMENT '模板树形json结构',
   body_id varchar (50) null DEFAULT NULL COMMENT 'odfbody节点id',
   PRIMARY KEY (template_id)
 );

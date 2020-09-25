@@ -44,8 +44,9 @@
         <result property="contentExpress" column="contentExpress" />
         <result property="elementName" column="nodeName" />
         <result property="isBody" column="isBody"/>
-        <result property="isClosure" column="isClosure"/>
         <result property="isSimple" column="isSimple"/>
+        <result property="condition" column="condition"/>
+        <result property="enableCondition" column="enableCondition"/>
     </resultMap>
 <resultMap id="attrs" type="com.onesports.editor.po.EtAttribute">
     <id property="id" column="attId"/>
@@ -60,8 +61,9 @@ NODE.AUTO_FIELD "autoField",
 NODE.ID  "nodeId",
 NODE.CONTENT_EXPRESS "contentExpress",
 NODE.ISBODY "isBody",
-NODE.IS_CLOSURE "isClosure",
 NODE.IS_SIMPLE "isSimple",
+NODE.CONDITION "condition",
+NODE.ENABLE_CONDITION  "enableCondition",
 (SELECT ATT.ATTRIBUTE_NAME  FROM ET_ATTRIBUTE  ATT where ATT.ID=RELATION.ATTRIBUTE_ID) "attName",
 (SELECT ATT.ID  FROM ET_ATTRIBUTE  ATT where ATT.ID=RELATION.ATTRIBUTE_ID) "attId",
 (SELECT ATT.VAL_EXPRESS FROM ET_ATTRIBUTE  ATT where ATT.ID=RELATION.ATTRIBUTE_ID) "express",

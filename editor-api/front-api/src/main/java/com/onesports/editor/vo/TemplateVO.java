@@ -42,8 +42,6 @@ public class TemplateVO implements Serializable {
     @ApiModelProperty(value = "使用加密算法ID")
     private String cryptoId;
 
-    @ApiModelProperty(value = "树形json结构")
-    private String treeJsonStr;
 
     @ApiModelProperty("odfbody节点id")
     private String bodyId;
@@ -53,7 +51,6 @@ public class TemplateVO implements Serializable {
         BeanUtils.copyProperties(this,entity);
         Optional.ofNullable(this.getOdfXmlStr()).ifPresent(xml->entity.setOdfXml(xml.getBytes(StandardCharsets.UTF_8)));
         Optional.ofNullable(this.getTemplateContentStr()).ifPresent(content->entity.setTemplateContent(content.getBytes(StandardCharsets.UTF_8)));
-        Optional.ofNullable(this.getTreeJsonStr()).ifPresent(content->entity.setTreeJson(content.getBytes(StandardCharsets.UTF_8)));
         return entity;
     }
 }

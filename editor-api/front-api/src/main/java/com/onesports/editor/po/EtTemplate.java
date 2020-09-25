@@ -57,9 +57,6 @@ private static final long serialVersionUID=1L;
     @ApiModelProperty(value = "使用加密算法ID")
     private String cryptoId;
 
-    @ApiModelProperty(value = "树形json结构")
-    private byte[] treeJson;
-
     @ApiModelProperty("odfbody节点id")
     private String bodyId;
 
@@ -77,7 +74,6 @@ private static final long serialVersionUID=1L;
         BeanUtils.copyProperties(this,templateVO);
         Optional.ofNullable(this.getOdfXml()).ifPresent(xml->templateVO.setOdfXmlStr(new String(xml, StandardCharsets.UTF_8)));
         Optional.ofNullable(this.getTemplateContent()).ifPresent(content->templateVO.setTemplateContentStr(new String(content, StandardCharsets.UTF_8)));
-        Optional.ofNullable(this.treeJson).ifPresent(json->templateVO.setTreeJsonStr(new String(json,StandardCharsets.UTF_8)));
         return templateVO;
     }
 
