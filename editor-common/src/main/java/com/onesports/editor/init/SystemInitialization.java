@@ -40,9 +40,7 @@ public class SystemInitialization implements CommandLineRunner {
                 .sorted(Comparator.comparing(GlobalApplicationInit::order))
                 .forEach(data->{
                     if (data.async()){
-                        threadPoolTaskExecutor.execute(()->{
-                            data.init();
-                        });
+                        threadPoolTaskExecutor.execute(data::init);
                     }else{
                         data.init();
                     }
